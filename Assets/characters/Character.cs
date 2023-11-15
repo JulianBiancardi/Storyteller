@@ -7,24 +7,22 @@ public enum Feeling{
     Scared,
     Surprised,
     Disgusted,
-    Neutral
+    Neutral,
+    Love
 }
 
 public class Character : BasicDraggeable
 {
     Animator animatorController;
+    public CharacterType characterType;
     private Feeling feeling = Feeling.Neutral;
+    public Container container;
 
     void Awake()
     {
         animatorController = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
     public override GameObject OnDrag()
     {
@@ -32,9 +30,19 @@ public class Character : BasicDraggeable
     }
 
     public void ChangeFeeling(Feeling newFeeling){
+        if(newFeeling == feeling){
+            return;
+        }
         feeling = newFeeling;
-        if(newFeeling == Feeling.Sad){
-            animatorController.SetTrigger("isSad");
+
+        switch(newFeeling) {
+            case Feeling.Love:
+                animatorController.SetTrigger("isLove");
+                break;
+            case Feeling.Neutral:
+            default:
+                animatorController.SetTrigger("isNeutral");
+                break;
         }
     }
 

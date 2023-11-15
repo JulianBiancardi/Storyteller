@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class God : Frame
 {
+    public List<Container> containers;
     private Character character = null;
+    private Dictionary<CharacterType, Container> containers2 = new();
 
     void Start()
     {
@@ -18,14 +20,14 @@ public class God : Frame
             Debug.Log("Selection is null");
             return;
         }
-        ReceiveCharacter(container.ReceiveSelection(selection));
     }
 
-    public void ReceiveCharacter(Character character){
-        if(character == null){
-            Debug.Log("Character is null");
-            return;
-        }
+    public void AddCharacter(Container container, Character character){
+        //if(!containers.ContainsKey(character ))
         this.character = character;
+    }
+
+    public void RemoveCharacter(){
+        character = null;
     } 
 }

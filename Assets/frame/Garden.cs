@@ -18,7 +18,7 @@ public class Garden : Frame
             Debug.Log("Selection is null");
             return;
         }
-        ReceiveCharacter(container.ReceiveSelection(selection));
+        //ReceiveCharacter(container.ReceiveSelection(selection));
     }
 
     public void ReceiveCharacter(Character character){

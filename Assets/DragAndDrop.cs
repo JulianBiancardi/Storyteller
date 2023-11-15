@@ -57,11 +57,12 @@ public class DragAndDrop : MonoBehaviour
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         int layerMask = 1 << LayerMask.NameToLayer("CurrentDraggedObject");
+        layerMask |= 1 << LayerMask.NameToLayer("Character");
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, ~layerMask);
         if(hit.collider != null){
+            Debug.Log("Hit " + hit.collider.gameObject.name);
             Container container = hit.collider.gameObject.GetComponent<Container>();
-            Frame frame = container?.transform.parent.GetComponent<Frame>();
-            frame.ReceiveDragOperation(currentDragObject, container);
+            container.ReceiveDragOperation(currentDragObject.GetComponent<Selection>());
         }
 
         Destroy(currentDragObject);

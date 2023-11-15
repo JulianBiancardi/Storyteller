@@ -11,14 +11,14 @@ public class Remove : MonoBehaviour
     }
 
     public void OnRemove(){
-        Debug.Log("Remove");
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         if(hit.collider != null){
             Debug.Log("Hit " + hit.collider.gameObject.name);
             Character character = hit.collider.gameObject.GetComponent<Character>();
             if(character != null){
-                Destroy(hit.collider.gameObject);
+                Debug.Log("Parent " + character.container);
+                character.container.RemoveCharacter();
             }
         }
     }
