@@ -63,6 +63,7 @@ public class DragAndDrop : MonoBehaviour
             Debug.Log("Hit " + hit.collider.gameObject.name);
             Container container = hit.collider.gameObject.GetComponent<Container>();
             container.ReceiveDragOperation(currentDragObject.GetComponent<Selection>());
+            Level.Instance.ComputeAll();
         }
 
         Destroy(currentDragObject);

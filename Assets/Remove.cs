@@ -17,8 +17,8 @@ public class Remove : MonoBehaviour
             Debug.Log("Hit " + hit.collider.gameObject.name);
             Character character = hit.collider.gameObject.GetComponent<Character>();
             if(character != null){
-                Debug.Log("Parent " + character.container);
                 character.container.RemoveCharacter();
+                Level.Instance.ComputeAll();
             }
         }
     }

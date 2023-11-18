@@ -6,7 +6,7 @@ using UnityEngine;
 public class Selection : MonoBehaviour
 {
     public GameObject objectToDrop;
-    public CharacterType character;
+    public Actor actor;
     public SpriteRenderer spriteRenderer;
 
     void Start()
@@ -18,8 +18,8 @@ public class Selection : MonoBehaviour
         return objectToDrop;
     }
 
-    public void instanciate(CharacterType character, Sprite sprite, AnimatorController animatorController){
-        this.character = character;
+    public void Instanciate(Actor actor, Sprite sprite, AnimatorController animatorController){
+        this.actor = actor;
         spriteRenderer.sprite = sprite;
         objectToDrop.GetComponent<Animator>().runtimeAnimatorController = animatorController;
     }

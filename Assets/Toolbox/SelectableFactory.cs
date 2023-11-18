@@ -20,7 +20,7 @@ public struct CharacterInformation
 
 public class SelectableFactory{
 
-    static readonly Dictionary<CharacterType, CharacterInformation> sprites = new();
+    static readonly Dictionary<ActorId, CharacterInformation> sprites = new();
 
     static SelectableFactory(){
         Sprite adamSprite =  Resources.Load<Sprite>("ToolBox/toolbox_adamgen");
@@ -33,14 +33,14 @@ public class SelectableFactory{
         AudioClip femaleDrag1 = Resources.Load<AudioClip>("ToolBox/sounds/pick_toolbox_actor_female_generic_01");
         AudioClip femaleDrag2 = Resources.Load<AudioClip>("ToolBox/sounds/pick_toolbox_actor_female_generic_02");
 
-        sprites.Add(CharacterType.Adam, new CharacterInformation(adamSprite, adamAnimator, new List<AudioClip>(){maleDrag1, maleDrag2}));
-        sprites.Add(CharacterType.Eve, new CharacterInformation(eveSprite, eveAnimator, new List<AudioClip>(){femaleDrag1, femaleDrag2}));
+        sprites.Add(ActorId.Adam, new CharacterInformation(adamSprite, adamAnimator, new List<AudioClip>(){maleDrag1, maleDrag2}));
+        sprites.Add(ActorId.Eve, new CharacterInformation(eveSprite, eveAnimator, new List<AudioClip>(){femaleDrag1, femaleDrag2}));
     }
 
-    public static GameObject CreateSelectable(CharacterType character){
+    public static GameObject CreateSelectable(Actor actor){
         GameObject selectableCharacterPrefab = Level.Instance.selectableCharacterPrefab;
         GameObject selectableCharacter = GameObject.Instantiate(selectableCharacterPrefab);
-        selectableCharacter.GetComponent<CharacterSelectable>().Instanciate(character, sprites.GetValueOrDefault(character));
+        selectableCharacter.GetComponent<CharacterSelectable>().Instanciate(actor, sprites.GetValueOrDefault(actor.GetActorId()));
         return selectableCharacter;
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class CharacterSelectable : BasicDraggeable
 {
     public GameObject selectionPrefab;
-    public CharacterType character;
+    public Actor actor;
     public SpriteRenderer spriteRenderer;
     public AnimatorController animatorController;
     private AudioSource audioSource;
@@ -19,9 +19,9 @@ public class CharacterSelectable : BasicDraggeable
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void Instanciate(CharacterType character, CharacterInformation characterInformation)
+    public void Instanciate(Actor actor, CharacterInformation characterInformation)
     {
-        this.character = character;
+        this.actor = actor;
         spriteRenderer.sprite = characterInformation.sprite;
         this.animatorController = characterInformation.animatorController;
         this.onDragClips = characterInformation.onDragClips;
@@ -34,7 +34,7 @@ public class CharacterSelectable : BasicDraggeable
         GameObject dragObject = Instantiate(selectionPrefab);
         dragObject.transform.position = transform.position;
         dragObject.transform.localScale = new Vector3(1, 1, 1);
-        dragObject.GetComponent<Selection>().instanciate(character, spriteRenderer.sprite, animatorController);
+        dragObject.GetComponent<Selection>().Instanciate(actor, spriteRenderer.sprite, animatorController);
         return dragObject;
     }
 }

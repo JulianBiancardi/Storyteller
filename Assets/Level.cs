@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    //create a static singleton patter
     public static Level Instance { get; private set; }
 
     public string levelName;
     public string levelDescription;
     public int numberOfFrames;
-    public List<CharacterType> characters = new ();
     public List<FrameSet> sets = new ();
+    private List<Actor> actors = new ();
+    private List<Frame> frames = new ();
     public GameObject selectableCharacterPrefab;
     public GameObject framePrefab;
     public Solution solution;
@@ -31,6 +31,8 @@ public class Level : MonoBehaviour
     }
     void Start()
     {
+        actors.Add(new Actor(ActorId.Adam));
+        actors.Add(new Actor(ActorId.Eve));
         CrateToolBox();
         CreateFrames();
     }
@@ -39,10 +41,9 @@ public class Level : MonoBehaviour
         GameObject toolBox = this.transform.Find("ToolBox").gameObject;
         int currentCharacter = 0;
         int spacing = 2;
-        foreach(CharacterType character in characters){
-            GameObject selectableCharacter = SelectableFactory.CreateSelectable(character);
+        foreach(Actor actor in actors){
+            GameObject selectableCharacter = SelectableFactory.CreateSelectable(actor);
             selectableCharacter.transform.parent = toolBox.transform;
-            selectableCharacter.GetComponent<CharacterSelectable>().character = character;
             selectableCharacter.transform.localPosition = new Vector3(currentCharacter * spacing, 0, 0);
             currentCharacter++;
         }
@@ -50,16 +51,28 @@ public class Level : MonoBehaviour
 
     public void CreateFrames(){
         GameObject frames = this.transform.Find("Frames").gameObject;
-        int currentFrame = 0;
+        int index = 0;
         int spacing = 5;
         foreach(FrameSet set in sets){
             GameObject frame = FrameFactory.CreateFrame(set);
             frame.transform.parent = frames.transform;
-            frame.transform.localPosition = new Vector3(currentFrame * spacing, 0, 0);
-            currentFrame++;
+            frame.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+            float frameWidth = frame.GetComponent<SpriteRenderer>().bounds.size.x;
+
+            frame.transform.localPosition = new Vector3((index + (1f / 2f)) * frameWidth , 0, 0);
+            this.frames.Add(frame.GetComponent<Frame>());
+            index++;
         }
     }
 
+    public void ComputeAll(){
+        foreach(Actor actor in actors){
+            actor.Reset();
+        }
+        foreach(Frame frame in frames){
+            frame.Compute();
+        }
+    }
     public void AddOperation(CharacterType character, Emotion emotion){
         context.AddOperation(character, emotion);
         solution.CheckSolution(context);
