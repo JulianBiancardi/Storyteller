@@ -128,6 +128,8 @@ MonoBehaviour:
   onPlaceSounds:
   - {fileID: 8300000, guid: 83ba4ee5f31758c479aa26c5f80ead99, type: 3}
   - {fileID: 8300000, guid: ad0b78e8ed159f54a8f99f6ff397e87e, type: 3}
+  connectedContainers: []
+  facingLeft: 0
 --- !u!82 &7694168963248672784
 AudioSource:
   m_ObjectHideFlags: 0
