@@ -8,6 +8,7 @@ public class Container : MonoBehaviour
     protected Actor actor;
     private AudioSource audioSource;
     public List<AudioClip> onPlaceSounds;
+    private List<AudioClip> onRemoveSounds;
     public List<Container> connectedContainers;
     public bool facingLeft = false;
 
@@ -16,7 +17,11 @@ public class Container : MonoBehaviour
         characterSpawn = transform.Find("CharacterSpawn");
         actor = null;
         audioSource = GetComponent<AudioSource>();
+
+        onRemoveSounds = new List<AudioClip>();
+        onRemoveSounds.Add(Resources.Load<AudioClip>("Sound/Sfx/removed_actor_01"));
     }
+
     public Actor GetActor(){
         return actor;
     }
@@ -61,11 +66,8 @@ public class Container : MonoBehaviour
         Destroy(currentCharacter);
         currentCharacter = null;
         actor = null;
-        OnRemove();
-    }
-
-    public virtual void OnRemove(){
-
+        audioSource.clip = onRemoveSounds[Random.Range(0, onRemoveSounds.Count)];
+        audioSource.Play();
     }
 
     public bool IsEmpty(){
