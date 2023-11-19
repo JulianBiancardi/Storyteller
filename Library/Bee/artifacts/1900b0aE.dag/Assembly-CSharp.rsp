@@ -359,7 +359,6 @@
 "Assets/Actors/Actor.cs"
 "Assets/Actors/ActorId.cs"
 "Assets/Actors/Character.cs"
-"Assets/Actors/CharacterType.cs"
 "Assets/DragAndDrop.cs"
 "Assets/Frames/Cementery.cs"
 "Assets/Frames/CementeryContainer.cs"

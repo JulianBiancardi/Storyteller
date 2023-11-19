@@ -54,7 +54,6 @@
      <Compile Include="Assets\DragAndDrop.cs" />
      <Compile Include="Assets\Frames\CementeryContainer.cs" />
      <Compile Include="Assets\utils\Compability.cs" />
-     <Compile Include="Assets\Actors\CharacterType.cs" />
      <Compile Include="Assets\Actors\Character.cs" />
      <Compile Include="Assets\Actors\ActorId.cs" />
      <Compile Include="Assets\Toolbox\Selection.cs" />

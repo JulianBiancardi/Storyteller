@@ -15,6 +15,7 @@ public class Character : BasicDraggeable
     public Sprite tombSprite;
     private SpriteRenderer spriteRenderer;
     private AudioSource audioSource;
+    private GameObject pupil;
     private GameObject expressionContainer;
 
     void Awake()
@@ -22,6 +23,7 @@ public class Character : BasicDraggeable
         animatorController = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
+        pupil = transform.Find("Pupil").gameObject;
         expressionContainer = transform.Find("ExpressionContainer").gameObject;
     }
 
@@ -37,8 +39,8 @@ public class Character : BasicDraggeable
 
     
     public void Death(){
-        Debug.Log("Death");
-        animatorController = null;
+        animatorController.runtimeAnimatorController = null;
+        pupil.SetActive(false);
         spriteRenderer.sprite = tombSprite;
     }
     
