@@ -1,17 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public struct CharacterInformation
 {
     public Sprite toolSprite;
     public Sprite tombSprite;
-    public AnimatorController animatorController;
+    public RuntimeAnimatorController animatorController;
     public List<AudioClip> onDragClips;
 
-    public CharacterInformation(Sprite toolSprite, Sprite tombSprite, AnimatorController animatorController, List<AudioClip> onDragClips)
+    public CharacterInformation(Sprite toolSprite, Sprite tombSprite, RuntimeAnimatorController animatorController, List<AudioClip> onDragClips)
     {
         this.toolSprite = toolSprite;
         this.tombSprite = tombSprite;
@@ -29,8 +28,8 @@ public class SelectableFactory{
         Sprite eveSprite =  Resources.Load<Sprite>("ToolBox/toolbox_evegen");
         Sprite adamTombSprite =  Resources.Load<Sprite>("Characters/Tomb/tomb_icon_adamgen_normal");
         Sprite eveTombSprite =  Resources.Load<Sprite>("Characters/Tomb/tomb_icon_evegen_normal");  
-        AnimatorController adamAnimator = Resources.Load<AnimatorController>("Characters/adam");
-        AnimatorController eveAnimator = Resources.Load<AnimatorController>("Characters/eve");
+        RuntimeAnimatorController adamAnimator = Resources.Load<RuntimeAnimatorController>("Characters/adam");
+        RuntimeAnimatorController eveAnimator = Resources.Load<RuntimeAnimatorController>("Characters/eve");
         AudioClip maleDrag1 = Resources.Load<AudioClip>("ToolBox/sounds/pick_toolbox_actor_male_generic_01");
         AudioClip maleDrag2 = Resources.Load<AudioClip>("ToolBox/sounds/pick_toolbox_actor_male_generic_02");
         
