@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 1003213258521696579}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d2ea3358229c0614aa6e26df3e49c89a, type: 2}
+  m_Controller: {fileID: 9100000, guid: cbad6781dfe85304588b56e183fae3f1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   container: {fileID: 0}
-  tombSprite: {fileID: 21300000, guid: 29ef16848d147cb42831cd2fbd7996b6, type: 3}
+  tombSprite: {fileID: 21300000, guid: f0af46e60631a6a47b9259ea9d24b424, type: 3}
 --- !u!82 &6112950913502304523
 AudioSource:
   m_ObjectHideFlags: 0

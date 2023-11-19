@@ -9,6 +9,7 @@ public class Container : MonoBehaviour
     private AudioSource audioSource;
     public List<AudioClip> onPlaceSounds;
     public List<Container> connectedContainers;
+    public bool facingLeft = false;
 
     void Start()
     {
@@ -46,12 +47,14 @@ public class Container : MonoBehaviour
         GameObject droppedObject = Instantiate(character);
         droppedObject.transform.parent = characterSpawn;
         droppedObject.transform.position = characterSpawn.position;
-        droppedObject.transform.rotation = characterSpawn.rotation;
         droppedObject.transform.localScale = new Vector3(1, 1, 1);
-        currentCharacter = droppedObject;
-        currentCharacter.GetComponent<Character>().container = this;
+        if(facingLeft){
+            droppedObject.GetComponent<Character>().FacingLeft();
+        }
+        droppedObject.GetComponent<Character>().container = this;
         audioSource.clip = onPlaceSounds[Random.Range(0, onPlaceSounds.Count)];
         audioSource.Play();
+        currentCharacter = droppedObject;
     }
 
     public void RemoveCharacter(){

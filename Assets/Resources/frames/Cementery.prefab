@@ -242,6 +242,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 83ba4ee5f31758c479aa26c5f80ead99, type: 3}
   - {fileID: 8300000, guid: ad0b78e8ed159f54a8f99f6ff397e87e, type: 3}
   connectedContainers: []
+  facingLeft: 0
 --- !u!82 &2292716261864821350
 AudioSource:
   m_ObjectHideFlags: 0
@@ -358,6 +359,7 @@ MonoBehaviour:
   onPlaceSounds:
   - {fileID: 8300000, guid: 3e08c14ac9e14ef4e9e84e2f78b588cf, type: 3}
   connectedContainers: []
+  facingLeft: 1
 --- !u!82 &5693651086694515773
 AudioSource:
   m_ObjectHideFlags: 0

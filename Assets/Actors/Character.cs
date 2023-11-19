@@ -25,7 +25,11 @@ public class Character : BasicDraggeable
         expressionContainer = transform.Find("ExpressionContainer").gameObject;
     }
 
-    
+    public void FacingLeft(){
+        transform.localScale = new Vector3(-1, 1, 1);
+
+    }
+
     public override GameObject OnDrag()
     {
         throw new System.NotImplementedException();
