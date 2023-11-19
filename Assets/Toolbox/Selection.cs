@@ -18,9 +18,10 @@ public class Selection : MonoBehaviour
         return objectToDrop;
     }
 
-    public void Instanciate(Actor actor, Sprite sprite, AnimatorController animatorController){
+    public void Instanciate(Actor actor, CharacterInformation characterInfo){
         this.actor = actor;
-        spriteRenderer.sprite = sprite;
-        objectToDrop.GetComponent<Animator>().runtimeAnimatorController = animatorController;
+        spriteRenderer.sprite = characterInfo.toolSprite;
+        objectToDrop.GetComponent<Animator>().runtimeAnimatorController = characterInfo.animatorController;
+        objectToDrop.GetComponent<Character>().tombSprite = characterInfo.tombSprite;
     }
 }

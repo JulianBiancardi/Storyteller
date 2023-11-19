@@ -101,9 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectionPrefab: {fileID: 7327362044292827659, guid: dc0d6155497884a4582daf0796ffa640, type: 3}
-  character: 1
   spriteRenderer: {fileID: 0}
-  animatorController: {fileID: 0}
+  nameTextMesh: {fileID: 4988348049871498831}
 --- !u!61 &3403770746974819471
 BoxCollider2D:
   m_ObjectHideFlags: 0

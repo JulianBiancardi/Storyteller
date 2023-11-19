@@ -60,10 +60,11 @@ public class DragAndDrop : MonoBehaviour
         layerMask |= 1 << LayerMask.NameToLayer("Character");
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, ~layerMask);
         if(hit.collider != null){
-            Debug.Log("Hit " + hit.collider.gameObject.name);
             Container container = hit.collider.gameObject.GetComponent<Container>();
-            container.ReceiveDragOperation(currentDragObject.GetComponent<Selection>());
-            Level.Instance.ComputeAll();
+            if(container != null){
+                container.ReceiveDragOperation(currentDragObject.GetComponent<Selection>());
+                Level.Instance.ComputeAll();
+            }
         }
 
         Destroy(currentDragObject);

@@ -2,16 +2,30 @@ public class Actor
 {
     private ActorId actorId;
     protected ActorId inLoveWith;
+    private bool needsLove;
 
-    public Actor(ActorId actorId){
+    public Actor(ActorId actorId, bool needsLove){
         this.actorId = actorId;
         this.inLoveWith = ActorId.None;
+        this.needsLove = needsLove;
     }
 
     public ActorId GetActorId(){
         return actorId;
     }
+
+    public string GetName(){
+        return actorId.ToString();
+    }
+
+    public bool NeedsLove(){
+        return needsLove;
+    }
     
+    public bool IsLonely(){
+        return inLoveWith == ActorId.None;
+    }
+
     public bool IsInLoveWith(Actor actor){
         return inLoveWith == actor.actorId;
     }

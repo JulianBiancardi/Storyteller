@@ -6,17 +6,19 @@ using UnityEngine;
 
 public class Garden : Frame
 {
-    public GardenContainer gardenContainerLeft;
-    public GardenContainer gardenContainerRight;
+    public Container gardenContainerLeft;
+    public Container gardenContainerRight;
     public GameObject expression;
 
     void Start()
     {
+        gardenContainerLeft.connectedContainers.Add(gardenContainerRight);
+        gardenContainerRight.connectedContainers.Add(gardenContainerLeft);
     }
 
-    public override void Compute(){
+    public override FrameResult Compute(){
         if(gardenContainerLeft.IsEmpty() && gardenContainerRight.IsEmpty()){
-            return;
+            return new FrameResult();
         }
 
         Actor actorLeft = gardenContainerLeft.GetActor();
@@ -25,7 +27,12 @@ public class Garden : Frame
         CompabilityResult result = Compability.Match(actorLeft, actorRight);
 
         expression.SetActive(result.isMatch);
-        gardenContainerLeft.UpdateCharactersState(result);
-        gardenContainerRight.UpdateCharactersState(result);
+        if(actorLeft != null)
+            gardenContainerLeft.ChangeCharacterState(result.feelings[actorLeft.GetActorId()]);
+        
+        if(actorRight != null)
+            gardenContainerRight.ChangeCharacterState(result.feelings[actorRight.GetActorId()]);
+
+        return result.isMatch ? new FrameResult().WithRomance(actorLeft.GetActorId(), actorRight.GetActorId()) : new FrameResult();
     }
 }

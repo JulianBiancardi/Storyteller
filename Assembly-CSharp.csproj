@@ -41,15 +41,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Toolbox\SelectableFactory.cs" />
-     <Compile Include="Assets\Frames\GodContainer.cs" />
      <Compile Include="Assets\Frames\FrameSet.cs" />
      <Compile Include="Assets\Frames\God.cs" />
-     <Compile Include="Assets\Frames\GardenContainer.cs" />
      <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\utils\CursorManager.cs" />
      <Compile Include="Assets\Actors\Actor.cs" />
      <Compile Include="Assets\Toolbox\CharacterSelectable.cs" />
-     <Compile Include="Assets\Emotions.cs" />
      <Compile Include="Assets\Frames\Container.cs" />
      <Compile Include="Assets\Frames\Garden.cs" />
      <Compile Include="Assets\Frames\FrameFactory.cs" />
@@ -63,6 +60,7 @@
      <Compile Include="Assets\Toolbox\Selection.cs" />
      <Compile Include="Assets\Remove.cs" />
      <Compile Include="Assets\Frames\Cementery.cs" />
+     <Compile Include="Assets\utils\Expression.cs" />
      <Compile Include="Assets\Level.cs" />
      <Compile Include="Assets\Frames\Frame.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

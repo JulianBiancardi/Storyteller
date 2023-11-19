@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -16,7 +17,7 @@ public class Level : MonoBehaviour
     public GameObject selectableCharacterPrefab;
     public GameObject framePrefab;
     public Solution solution;
-    public LevelContext context = new LevelContext();
+    public GameObject goalCheckmark;
 
     private void Awake() 
     { 
@@ -31,8 +32,8 @@ public class Level : MonoBehaviour
     }
     void Start()
     {
-        actors.Add(new Actor(ActorId.Adam));
-        actors.Add(new Actor(ActorId.Eve));
+        actors.Add(new Actor(ActorId.Adam, true));
+        actors.Add(new Actor(ActorId.Eve, false));
         CrateToolBox();
         CreateFrames();
     }
@@ -66,46 +67,89 @@ public class Level : MonoBehaviour
     }
 
     public void ComputeAll(){
+        List<FrameResult> frameResults = new();
+
         foreach(Actor actor in actors){
             actor.Reset();
         }
         foreach(Frame frame in frames){
-            frame.Compute();
+            frameResults.Add(frame.Compute());
         }
-    }
-    public void AddOperation(CharacterType character, Emotion emotion){
-        context.AddOperation(character, emotion);
-        solution.CheckSolution(context);
-    }
-}
 
-public class LevelContext{
-    //List of tuple of character and emotion
-    public List<Tuple<CharacterType, Emotion>> operations = new List<Tuple<CharacterType, Emotion>>();
-
-    public void AddOperation(CharacterType character, Emotion emotion){
-        operations.Add(new Tuple<CharacterType, Emotion>(character, emotion));
+        solution.CheckSolution(frameResults);
     }
 }
 
 [Serializable]
 public class Solution {
-    public CharacterType character;
-    public Emotion emotion;
+    public List<FrameResult> goals = new();
 
+    public void CheckSolution(List<FrameResult> frameResults){
 
-    public Solution(CharacterType character, Emotion emotion){
-        this.character = character;
-        this.emotion = emotion;
-    }
+        List<int> goalsIndexes = new();
+        for(int i = 0; i < goals.Count; i++){
+            int index = frameResults.FindIndex(0, (FrameResult result) => result.SameAs(goals[i]));
+            goalsIndexes.Add(index);
+        }
 
-    public void CheckSolution(LevelContext context){
-        foreach(Tuple<CharacterType, Emotion> operation in context.operations){
-            if(operation.Item1 == character && operation.Item2 == emotion){
-                Debug.Log("Correct");
-            }else{
-                Debug.Log("Incorrect");
+        for(int i = 0; i < goalsIndexes.Count; i++){
+            int current = goalsIndexes[i];
+
+            if(current == -1){
+                Debug.Log("Missing goal");
+                Level.Instance.goalCheckmark.SetActive(false);
+                return;
+            }
+
+            if(i + 1 == goalsIndexes.Count){
+                continue;
+            }
+
+            if(current > goalsIndexes[i + 1]){
+                Debug.Log("Wrong order");
+                Level.Instance.goalCheckmark.SetActive(false);
+                return;
             }
         }
+
+        Debug.Log("Solution is correct");
+        Level.Instance.goalCheckmark.SetActive(true);
+    }
+}
+
+[Serializable]
+public struct FrameResult{
+    public ActorId actorId;
+    public Feeling feeling;
+    public bool isDead;
+    public RomanceResult romanceResult;
+
+    public FrameResult(ActorId actorId, Feeling feeling, bool isDead){
+        this.actorId = actorId;
+        this.feeling = feeling;
+        this.isDead = isDead;
+        this.romanceResult = new RomanceResult();
+    }
+
+    public bool SameAs(FrameResult other){
+        return actorId == other.actorId && feeling == other.feeling && isDead == other.isDead && romanceResult.SameAs(other.romanceResult);
+    }
+
+    public FrameResult WithRomance(ActorId firstActor, ActorId secondActor){
+        this.romanceResult = new RomanceResult{
+            firstActor = firstActor,
+            secondActor = secondActor
+        };
+        return this;
+    }
+}
+
+[Serializable]
+public struct RomanceResult{
+    public ActorId firstActor;
+    public ActorId secondActor;
+
+    public bool SameAs(RomanceResult other){
+        return (firstActor == other.firstActor && secondActor == other.secondActor) || (firstActor == other.secondActor && secondActor == other.firstActor);
     }
 }

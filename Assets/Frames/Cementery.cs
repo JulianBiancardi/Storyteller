@@ -1,14 +1,26 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Cementery : Frame
 {
     public CementeryContainer leftContainer;
-    public Container tombContainer;
+    public CementeryContainer tombContainer;
 
-    public override void Compute()
+    void Start()
     {
-        DeathResult result = Death(tombContainer.GetActor(), leftContainer.GetActor());
+        leftContainer.connectedContainers.Add(tombContainer);
+        tombContainer.connectedContainers.Add(leftContainer);
+    }
+
+    public override FrameResult Compute()
+    {
+        Actor witness = leftContainer.GetActor();
+        Actor dead = tombContainer.GetActor();
+
+        DeathResult result = Death(dead, witness);
         leftContainer.UpdateCharactersState(result);
+        tombContainer.DeathCharacter();
+        return new FrameResult(dead != null ? dead.GetActorId() : ActorId.None, Feeling.Neutral, dead != null);
     }
 
 

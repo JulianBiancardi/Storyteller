@@ -8,8 +8,8 @@ public abstract class Frame : MonoBehaviour
     {
     }
 
-    public virtual void Compute(){
-
+    public virtual FrameResult Compute(){
+        return new FrameResult();
     }
     
 }

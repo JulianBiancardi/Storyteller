@@ -14,4 +14,11 @@ public class CementeryContainer : Container
         Feeling newFeeling = result.witnessFeeling;
         currentCharacter.GetComponent<Character>().ChangeFeeling(newFeeling);
     }
+
+    public void DeathCharacter(){
+        if(actor == null){
+            return;
+        }
+        currentCharacter.GetComponent<Character>().Death();
+    }
 }

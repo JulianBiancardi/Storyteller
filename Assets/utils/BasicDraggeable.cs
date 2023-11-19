@@ -23,6 +23,5 @@ public abstract class BasicDraggeable: MonoBehaviour
         }
     }
 
-    //make abstract class
     public abstract GameObject OnDrag();
 }

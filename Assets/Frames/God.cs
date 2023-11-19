@@ -1,24 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class God : Frame
 {
-    public List<Container> containers;
-    private Character character = null;
-    private Dictionary<CharacterType, Container> containers2 = new();
+    public Container container;
 
-    void Start()
+    public override FrameResult Compute()
     {
-    }
+        Actor actor = container.GetActor();
+        if(actor == null){
+            return new FrameResult();
+        }
 
-    public void AddCharacter(Container container, Character character){
-        this.character = character;
+        Feeling newFeeling;
+        if(actor.IsLonely()){
+            newFeeling = actor.NeedsLove() ? Feeling.Lonely : Feeling.Neutral;
+        }else {
+            newFeeling = Feeling.Neutral;
+        }
+        
+        container.ChangeCharacterState(newFeeling);
+        return new FrameResult(container.GetActor().GetActorId(), newFeeling ,false);
     }
-
-    public void RemoveCharacter(){
-        character = null;
-    } 
 }

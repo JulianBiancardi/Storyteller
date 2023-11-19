@@ -361,7 +361,6 @@
 "Assets/Actors/Character.cs"
 "Assets/Actors/CharacterType.cs"
 "Assets/DragAndDrop.cs"
-"Assets/Emotions.cs"
 "Assets/Frames/Cementery.cs"
 "Assets/Frames/CementeryContainer.cs"
 "Assets/Frames/Container.cs"
@@ -369,9 +368,7 @@
 "Assets/Frames/FrameFactory.cs"
 "Assets/Frames/FrameSet.cs"
 "Assets/Frames/Garden.cs"
-"Assets/Frames/GardenContainer.cs"
 "Assets/Frames/God.cs"
-"Assets/Frames/GodContainer.cs"
 "Assets/Level.cs"
 "Assets/PlayerController.cs"
 "Assets/Remove.cs"
@@ -381,6 +378,7 @@
 "Assets/utils/BasicDraggeable.cs"
 "Assets/utils/Compability.cs"
 "Assets/utils/CursorManager.cs"
+"Assets/utils/Expression.cs"
 -langversion:9.0
 
 /deterministic
