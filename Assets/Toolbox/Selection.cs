@@ -5,6 +5,7 @@ public class Selection : MonoBehaviour
     private ItemType itemType;
     public GameObject objetToDrop;
     public Actor actor;
+    public FrameSet frameSet;
     public SpriteRenderer spriteRenderer;
 
     void Start()
@@ -22,11 +23,12 @@ public class Selection : MonoBehaviour
         //characterToDrop.GetComponent<Animator>().runtimeAnimatorController = characterInfo.animatorController;
         //characterToDrop.GetComponent<Character>().tombSprite = characterInfo.tombSprite;
     }
-    public void Instanciate(ItemType itemType, Sprite icon, GameObject objectToDrop, Actor actor){
+    public void Instanciate(ItemType itemType, Sprite icon, GameObject objectToDrop, Actor actor, FrameSet frameSet){
         this.itemType = itemType;
         spriteRenderer.sprite = icon;
         this.objetToDrop = objectToDrop;
         this.actor = actor;
+        this.frameSet = frameSet;
     }
 
 

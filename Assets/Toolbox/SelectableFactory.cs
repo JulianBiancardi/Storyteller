@@ -38,14 +38,8 @@ public class SelectableFactory{
         sprites.Add(ActorId.Eve, new CharacterInformation(eveSprite, eveTombSprite, eveAnimator, new List<AudioClip>(){femaleDrag1, femaleDrag2}));
     }
 
-    public static GameObject CreateSelectable(Actor actor){
-        GameObject selectableCharacterPrefab = Level.Instance.selectableCharacterPrefab;
-        GameObject selectableCharacter = GameObject.Instantiate(selectableCharacterPrefab);
-        selectableCharacter.GetComponent<CharacterSelectable>().Instanciate(actor, sprites.GetValueOrDefault(actor.GetActorId()));
-        return selectableCharacter;
-    }
-
     static Dictionary<FrameSet, (string, string)> toolsInfo = new Dictionary<FrameSet, (string, string)>(){
+        {FrameSet.God, ("none","toolbox_setting_lovex2")},
         {FrameSet.Cementery, ("death","toolbox_setting_graveyard")},
         {FrameSet.Garden, ("love","toolbox_setting_heart")},
     };
@@ -67,7 +61,7 @@ public class SelectableFactory{
 
         GameObject toolItemPrefab = Level.Instance.toolItemPrefab;
         GameObject toolItem = GameObject.Instantiate(toolItemPrefab);
-        toolItem.GetComponent<ToolItem>().Instanciate(ItemType.Set, icon, toolInfo.Item1, onDragClips, FrameFactory.CreateFrame(frameSet));
+        toolItem.GetComponent<ToolItem>().Instanciate(ItemType.Set, icon, toolInfo.Item1, onDragClips, Level.Instance.characterPrefab, frameSet: frameSet);
         return toolItem;
     }
 }

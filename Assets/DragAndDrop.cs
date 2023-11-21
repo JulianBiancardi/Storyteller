@@ -54,16 +54,27 @@ public class DragAndDrop : MonoBehaviour
     void OnDeSelect(){
         isDragging = false;
         CursorManager.SetCursor(CursorManager.CursorState.Default);
+        Selection selection = currentDragObject.GetComponent<Selection>();
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         int layerMask = 1 << LayerMask.NameToLayer("CurrentDraggedObject");
         layerMask |= 1 << LayerMask.NameToLayer("Character");
+
+        if(selection.IsActor()){
+            layerMask |= 1 << LayerMask.NameToLayer("FrameHolder");
+        }else if(selection.IsSet()){
+            layerMask |= 1 << LayerMask.NameToLayer("Container");
+        }
+
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, ~layerMask);
         if(hit.collider != null){
             Container container = hit.collider.gameObject.GetComponent<Container>();
             if(container != null){
                 container.ReceiveDragOperation(currentDragObject.GetComponent<Selection>());
                 Level.Instance.ComputeAll();
+            }else {
+                Debug.Log("Not a container");
+                hit.collider.gameObject.GetComponent<BasicHolder>().Receive(currentDragObject.GetComponent<Selection>());
             }
         }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,11 +10,13 @@ public class Level : MonoBehaviour
     public static Level Instance { get; private set; }
     public LevelSpec levelSpec;
     private List<Actor> actors = new ();
-    private List<Frame> frames = new ();
-    public GameObject selectableCharacterPrefab;
+    private List<FrameHolder> frameHolders = new ();
     public GameObject toolItemPrefab;
     public GameObject characterPrefab;
+    public GameObject frameHolderPrefab;
+    public float frameSpacing;
     public Solution solution;
+    public TextMeshPro goalText;
     public GameObject goalCheckmark;
 
     private void Awake() 
@@ -29,11 +32,12 @@ public class Level : MonoBehaviour
     }
     void Start()
     {
+        goalText.text = levelSpec.goal;
         foreach(ActorId actorId in levelSpec.actors){
-           actors.Add(new Actor(actorId, false));
+           actors.Add(new Actor(actorId, true));
         }
         CrateToolBox();
-        CreateFrames();
+        CreateFrameHolders();
     }
 
     public void CrateToolBox(){
@@ -59,18 +63,15 @@ public class Level : MonoBehaviour
         toolBox.transform.localPosition += new Vector3(- 1 * (items - 1) , 0, 0);
     }
 
-    public void CreateFrames(){
+    public void CreateFrameHolders(){
         GameObject frames = this.transform.Find("Frames").gameObject;
-        int index = 0;
-        foreach(FrameSet set in levelSpec.initialFrames){
-            GameObject frame = FrameFactory.CreateFrame(set);
-            frame.transform.parent = frames.transform;
-            frame.transform.localScale = new Vector3(0.8f, 0.8f, 1);
-            float frameWidth = frame.GetComponent<SpriteRenderer>().bounds.size.x;
-
-            frame.transform.localPosition = new Vector3((index + (1f / 2f)) * frameWidth , 0, 0);
-            this.frames.Add(frame.GetComponent<Frame>());
-            index++;
+        for(int i = 0; i < levelSpec.frames; i++){
+            GameObject frameHolder = GameObject.Instantiate(frameHolderPrefab);
+            float frameWidth = frameHolder.GetComponent<SpriteRenderer>().bounds.size.x;
+            frameHolder.transform.parent = frames.transform;
+            frameHolder.transform.localPosition = new Vector3(i * frameSpacing, 0, 0);
+            frameHolder.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+            this.frameHolders.Add(frameHolder.GetComponent<FrameHolder>());
         }
     }
 
@@ -80,8 +81,8 @@ public class Level : MonoBehaviour
         foreach(Actor actor in actors){
             actor.Reset();
         }
-        foreach(Frame frame in frames){
-            frameResults.Add(frame.Compute());
+        foreach(FrameHolder frameHolder in frameHolders){
+            frameResults.Add(frameHolder.GetFrameResult());
         }
 
         solution.CheckSolution(frameResults);

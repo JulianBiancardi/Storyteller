@@ -41,12 +41,14 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Toolbox\SelectableFactory.cs" />
+     <Compile Include="Assets\Frames\FrameHolder.cs" />
      <Compile Include="Assets\Frames\FrameSet.cs" />
      <Compile Include="Assets\Frames\God.cs" />
      <Compile Include="Assets\Actors\CharacterFactory.cs" />
      <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\utils\CursorManager.cs" />
      <Compile Include="Assets\Actors\Actor.cs" />
+     <Compile Include="Assets\utils\BasicHolder.cs" />
      <Compile Include="Assets\Toolbox\CharacterSelectable.cs" />
      <Compile Include="Assets\Frames\Container.cs" />
      <Compile Include="Assets\Toolbox\ToolItem.cs" />

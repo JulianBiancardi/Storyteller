@@ -22,6 +22,7 @@ public class ToolItem : BasicDraggeable
     public GameObject selectionPrefab;
     private GameObject objectToDrop;
     private Actor actor;
+    private FrameSet frameSet;
 
     void Awake()
     {
@@ -30,7 +31,7 @@ public class ToolItem : BasicDraggeable
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void Instanciate(ItemType itemType, Sprite iconSprite, string name, List<AudioClip> onDragClips, GameObject objectToDrop, Actor actor = null)
+    public void Instanciate(ItemType itemType, Sprite iconSprite, string name, List<AudioClip> onDragClips, GameObject objectToDrop, Actor actor = null, FrameSet frameSet = FrameSet.None)
     {
         this.itemType = itemType;
         spriteRenderer.sprite = iconSprite;
@@ -38,6 +39,7 @@ public class ToolItem : BasicDraggeable
         this.onDragClips = onDragClips;
         this.objectToDrop = objectToDrop;
         this.actor = actor;
+        this.frameSet = frameSet;
     }
 
     public override GameObject OnDrag()
@@ -47,7 +49,7 @@ public class ToolItem : BasicDraggeable
         GameObject dragObject = Instantiate(selectionPrefab);
         dragObject.transform.position = transform.position;
         dragObject.transform.localScale = new Vector3(1, 1, 1);
-        dragObject.GetComponent<Selection>().Instanciate(itemType, spriteRenderer.sprite, objectToDrop, actor);
+        dragObject.GetComponent<Selection>().Instanciate(itemType, spriteRenderer.sprite, objectToDrop, actor, frameSet);
         return dragObject;
     }
 }

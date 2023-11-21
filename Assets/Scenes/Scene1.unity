@@ -1668,7 +1668,7 @@ MonoBehaviour:
     toolSpacing: 2
   selectableCharacterPrefab: {fileID: 5697995635434007632, guid: 383354024d30b64478016190fee44b36, type: 3}
   toolItemPrefab: {fileID: 407024023214072207, guid: 22af4755fc611754fa6fb413c687b771, type: 3}
-  framePrefab: {fileID: 4693531037399337611, guid: 0f4b49ee8362c13438ea33181bc8e1c5, type: 3}
+  characterPrefab: {fileID: 1003213258521696579, guid: aa1a907a7da040d4bbcd09aa64c3d35a, type: 3}
   solution:
     goals:
     - actorId: 1
