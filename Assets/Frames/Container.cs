@@ -27,6 +27,11 @@ public class Container : MonoBehaviour
     }
 
     public virtual void ReceiveDragOperation(Selection selection){
+        if(selection.IsSet()){
+            Debug.Log("Dropped a set into container");
+            return;
+        }
+
         if(!IsEmpty() && selection.actor.GetActorId() == actor.GetActorId()){
             Debug.Log("Same character");
             return;
@@ -34,7 +39,7 @@ public class Container : MonoBehaviour
 
         RemoveAlreadyPlacedActor(selection.actor.GetActorId());
         actor = selection.actor;
-        SpawnCharacter(selection.getObjectToDrop());
+        SpawnCharacter();
     }
 
     private void RemoveAlreadyPlacedActor(ActorId actorId){
@@ -47,19 +52,20 @@ public class Container : MonoBehaviour
         }
     }
 
-    protected void SpawnCharacter(GameObject character){
+    protected void SpawnCharacter(){
         Destroy(currentCharacter);
-        GameObject droppedObject = Instantiate(character);
-        droppedObject.transform.parent = characterSpawn;
-        droppedObject.transform.position = characterSpawn.position;
-        droppedObject.transform.localScale = new Vector3(1, 1, 1);
+        
+        GameObject character = CharacterFactory.CreateCharacter(actor.GetActorId(), this);
+        character.transform.parent = characterSpawn;
+        character.transform.position = characterSpawn.position;
+        character.transform.localScale = new Vector3(1, 1, 1);
+
         if(facingLeft){
-            droppedObject.GetComponent<Character>().FacingLeft();
+            character.GetComponent<Character>().FacingLeft();
         }
-        droppedObject.GetComponent<Character>().container = this;
         audioSource.clip = onPlaceSounds[Random.Range(0, onPlaceSounds.Count)];
         audioSource.Play();
-        currentCharacter = droppedObject;
+        currentCharacter = character;
     }
 
     public void RemoveCharacter(){

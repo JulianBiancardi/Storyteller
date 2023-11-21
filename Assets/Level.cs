@@ -7,15 +7,12 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     public static Level Instance { get; private set; }
-
-    public string levelName;
-    public string levelDescription;
-    public int numberOfFrames;
-    public List<FrameSet> sets = new ();
+    public LevelSpec levelSpec;
     private List<Actor> actors = new ();
     private List<Frame> frames = new ();
     public GameObject selectableCharacterPrefab;
-    public GameObject framePrefab;
+    public GameObject toolItemPrefab;
+    public GameObject characterPrefab;
     public Solution solution;
     public GameObject goalCheckmark;
 
@@ -32,8 +29,9 @@ public class Level : MonoBehaviour
     }
     void Start()
     {
-        actors.Add(new Actor(ActorId.Adam, true));
-        actors.Add(new Actor(ActorId.Eve, false));
+        foreach(ActorId actorId in levelSpec.actors){
+           actors.Add(new Actor(actorId, false));
+        }
         CrateToolBox();
         CreateFrames();
     }
@@ -41,20 +39,30 @@ public class Level : MonoBehaviour
     public void CrateToolBox(){
         GameObject toolBox = this.transform.Find("ToolBox").gameObject;
         int currentCharacter = 0;
-        int spacing = 2;
+        int spacing = levelSpec.toolSpacing;
+
+        foreach(FrameSet set in levelSpec.sets){
+            GameObject toolItem = SelectableFactory.CreateSetToolItem(set);
+            toolItem.transform.parent = toolBox.transform;
+            toolItem.transform.localPosition = new Vector3(currentCharacter * spacing, 0, 0);
+            currentCharacter++;
+        }
+
         foreach(Actor actor in actors){
-            GameObject selectableCharacter = SelectableFactory.CreateSelectable(actor);
+            GameObject selectableCharacter = SelectableFactory.CreateActorToolItem(actor);
             selectableCharacter.transform.parent = toolBox.transform;
             selectableCharacter.transform.localPosition = new Vector3(currentCharacter * spacing, 0, 0);
             currentCharacter++;
         }
+
+        int items = levelSpec.sets.Count + levelSpec.actors.Count;
+        toolBox.transform.localPosition += new Vector3(- 1 * (items - 1) , 0, 0);
     }
 
     public void CreateFrames(){
         GameObject frames = this.transform.Find("Frames").gameObject;
         int index = 0;
-        int spacing = 5;
-        foreach(FrameSet set in sets){
+        foreach(FrameSet set in levelSpec.initialFrames){
             GameObject frame = FrameFactory.CreateFrame(set);
             frame.transform.parent = frames.transform;
             frame.transform.localScale = new Vector3(0.8f, 0.8f, 1);

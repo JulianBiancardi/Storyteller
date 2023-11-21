@@ -36,16 +36,4 @@ public static class FrameFactory
         GameObject framePrefab = frames.GetValueOrDefault(set);
         return UnityEngine.Object.Instantiate(framePrefab);
     }
-
-    public static List<GameObject> CreateFrames(List<FrameSet> sets){
-        List<GameObject> frameList = new ();
-        string path = "frames/";
-
-        foreach(FrameSet set in sets){
-            GameObject framePrefab = Resources.Load<GameObject>(path + set.ToString().ToLower());
-            GameObject frame = UnityEngine.Object.Instantiate(framePrefab);
-            frameList.Add(frame);
-        }
-        return frameList;
-    }
 }

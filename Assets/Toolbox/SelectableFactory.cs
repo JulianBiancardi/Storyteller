@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,5 +43,31 @@ public class SelectableFactory{
         GameObject selectableCharacter = GameObject.Instantiate(selectableCharacterPrefab);
         selectableCharacter.GetComponent<CharacterSelectable>().Instanciate(actor, sprites.GetValueOrDefault(actor.GetActorId()));
         return selectableCharacter;
+    }
+
+    static Dictionary<FrameSet, (string, string)> toolsInfo = new Dictionary<FrameSet, (string, string)>(){
+        {FrameSet.Cementery, ("death","toolbox_setting_graveyard")},
+        {FrameSet.Garden, ("love","toolbox_setting_heart")},
+    };
+    public static GameObject CreateActorToolItem(Actor actor){
+        CharacterInformation characterInformation = sprites.GetValueOrDefault(actor.GetActorId());
+        GameObject toolItemPrefab = Level.Instance.toolItemPrefab;
+        GameObject toolItem = GameObject.Instantiate(toolItemPrefab);
+
+        toolItem.GetComponent<ToolItem>().Instanciate(ItemType.Actor, characterInformation.toolSprite, actor.GetActorId().ToString(), characterInformation.onDragClips, Level.Instance.characterPrefab, actor);
+        return toolItem;
+    }
+
+   public static GameObject CreateSetToolItem(FrameSet frameSet){
+        (string, string) toolInfo = toolsInfo.GetValueOrDefault(frameSet);
+        Sprite icon = Resources.Load<Sprite>("ToolBox/" + toolInfo.Item2);
+        List<AudioClip> onDragClips = new List<AudioClip>(){
+            Resources.Load<AudioClip>("Sound/Sfx/pick_toolbox_setting_generic_01"),
+        };
+
+        GameObject toolItemPrefab = Level.Instance.toolItemPrefab;
+        GameObject toolItem = GameObject.Instantiate(toolItemPrefab);
+        toolItem.GetComponent<ToolItem>().Instanciate(ItemType.Set, icon, toolInfo.Item1, onDragClips, FrameFactory.CreateFrame(frameSet));
+        return toolItem;
     }
 }
