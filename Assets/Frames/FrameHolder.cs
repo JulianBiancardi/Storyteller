@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class FrameHolder : BasicHolder
+public class FrameHolder : BasicHolder, Removable
 {
     public AudioClip onPlaceFrame;
+    public AudioClip onRemoveFrame;
     private AudioSource audioSource;
     private GameObject currentFrame;
 
@@ -26,16 +28,24 @@ public class FrameHolder : BasicHolder
         GameObject frame = FrameFactory.CreateFrame(frameSet);
         frame.transform.parent = transform;
         frame.transform.localScale = new Vector3(1, 1, 1);
-        frame.transform.localPosition = new Vector3(0, 0, 0);
+        frame.transform.localPosition = new Vector3(0, 0, -1);
         currentFrame = frame;
         audioSource.clip = onPlaceFrame;
         audioSource.Play();
     }
 
-    public FrameResult GetFrameResult(){
+    public List<FrameResult> GetFrameResults(){
         if(currentFrame == null){
-            return new FrameResult();
+            return new List<FrameResult>();
         }
         return currentFrame.GetComponent<Frame>().Compute();
+    }
+
+    public void OnRemove()
+    {
+        Destroy(currentFrame);
+        currentFrame = null;
+        audioSource.clip = onRemoveFrame;
+        audioSource.Play();
     }
 }

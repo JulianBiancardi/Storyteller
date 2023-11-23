@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onPlaceFrame: {fileID: 8300000, guid: c867e4d2dfe2f8b4094eb782d5e47725, type: 3}
+  onRemoveFrame: {fileID: 8300000, guid: 5334ae8db818f9b4c9a53cb0bd81b0e7, type: 3}
 --- !u!82 &-4071260266535050804
 AudioSource:
   m_ObjectHideFlags: 0

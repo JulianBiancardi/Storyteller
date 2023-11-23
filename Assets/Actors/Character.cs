@@ -7,7 +7,7 @@ public enum Feeling{
     SadTomb
 }
 
-public class Character : BasicDraggeable
+public class Character : BasicDraggeable, Removable
 {
     Animator animatorController;
     private Feeling feeling = Feeling.Neutral;
@@ -71,4 +71,8 @@ public class Character : BasicDraggeable
         audioSource.Play();
     }
 
+    public void OnRemove()
+    {
+        container.RemoveCharacter();
+    }
 }

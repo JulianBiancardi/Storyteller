@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 [Serializable]
 public struct LevelSpec
 {
+    public LevelId levelId;
     public string goal;
     public int frames;
     public List<FrameSet> sets;

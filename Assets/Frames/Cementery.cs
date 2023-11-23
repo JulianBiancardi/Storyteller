@@ -12,15 +12,27 @@ public class Cementery : Frame
         tombContainer.connectedContainers.Add(leftContainer);
     }
 
-    public override FrameResult Compute()
+    public override List<FrameResult> Compute()
     {
+        List<FrameResult> results = new();
         Actor witness = leftContainer.GetActor();
         Actor dead = tombContainer.GetActor();
 
         DeathResult result = Death(dead, witness);
         leftContainer.UpdateCharactersState(result);
         tombContainer.DeathCharacter();
-        return new FrameResult(dead != null ? dead.GetActorId() : ActorId.None, Feeling.Neutral, dead != null);
+
+        if(dead != null){
+            results.Add(new FrameResult(EventType.Died).From(dead.GetActorId()).WithDeathCause(DeathCause.Natural));
+
+            if(witness != null){
+                if(witness.IsInLoveWith(dead)){
+                    results.Add(new FrameResult(EventType.Idling).From(witness.GetActorId()).WithHearthbreakCause(HearthbreakCause.DeathOfLovedOne));
+                }
+            }
+        }
+
+        return results;
     }
 
 

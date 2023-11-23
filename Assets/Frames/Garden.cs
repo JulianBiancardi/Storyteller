@@ -19,9 +19,11 @@ public class Garden : Frame
         gardenContainerRight.connectedContainers.Add(gardenContainerLeft);
     }
 
-    public override FrameResult Compute(){
+    public override List<FrameResult> Compute(){
+        List<FrameResult> results = new();
+
         if(gardenContainerLeft.IsEmpty() && gardenContainerRight.IsEmpty()){
-            return new FrameResult();
+            return results;
         }
 
         Actor actorLeft = gardenContainerLeft.GetActor();
@@ -42,6 +44,12 @@ public class Garden : Frame
             gardenContainerRight.ChangeCharacterState(result.feelings[actorRight.GetActorId()]);
 
         beforeMatch = result.isMatch;
-        return result.isMatch ? new FrameResult().WithRomance(actorLeft.GetActorId(), actorRight.GetActorId()) : new FrameResult();
+
+        if(result.isMatch){
+            results.Add(new FrameResult(EventType.FallsOutOfLoveWith).From(actorLeft.GetActorId()).To(actorRight.GetActorId()));
+            results.Add(new FrameResult(EventType.FallsOutOfLoveWith).From(actorRight.GetActorId()).To(actorLeft.GetActorId()));
+        }
+
+        return results;
     }
 }

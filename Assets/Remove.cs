@@ -11,15 +11,16 @@ public class Remove : MonoBehaviour
     }
 
     public void OnRemove(){
+        
+        int layerMask = 1 << LayerMask.NameToLayer("Character");
+        layerMask |= 1 << LayerMask.NameToLayer("FrameHolder");
+
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, layerMask);
         if(hit.collider != null){
             Debug.Log("Hit " + hit.collider.gameObject.name);
-            Character character = hit.collider.gameObject.GetComponent<Character>();
-            if(character != null){
-                character.container.RemoveCharacter();
-                Level.Instance.ComputeAll();
-            }
+            hit.collider.gameObject.GetComponent<Removable>().OnRemove();
+            Level.Instance.ComputeAll();
         }
     }
 }

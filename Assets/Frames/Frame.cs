@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Frame : MonoBehaviour
+public abstract class Frame : MonoBehaviour, Removable
 {
     void Start()
     {
     }
 
-    public virtual FrameResult Compute(){
-        return new FrameResult();
+    public abstract List<FrameResult> Compute();
+
+    public void OnRemove()
+    {
+        Destroy(gameObject);
     }
-    
 }

@@ -371,10 +371,16 @@
 "Assets/Frames/Garden.cs"
 "Assets/Frames/God.cs"
 "Assets/Level.cs"
+"Assets/Level/LevelId.cs"
 "Assets/LevelSpec.cs"
 "Assets/PlayerController.cs"
 "Assets/Remove.cs"
-"Assets/Toolbox/CharacterSelectable.cs"
+"Assets/Solution/DeathCause.cs"
+"Assets/Solution/EventType.cs"
+"Assets/Solution/FrameResult.cs"
+"Assets/Solution/GoalsEvaluator.cs"
+"Assets/Solution/HearthbreakCause.cs"
+"Assets/Solution/LevelSolution.cs"
 "Assets/Toolbox/SelectableFactory.cs"
 "Assets/Toolbox/Selection.cs"
 "Assets/Toolbox/ToolItem.cs"
@@ -383,6 +389,7 @@
 "Assets/utils/Compability.cs"
 "Assets/utils/CursorManager.cs"
 "Assets/utils/Expression.cs"
+"Assets/utils/Removable.cs"
 -langversion:9.0
 
 /deterministic

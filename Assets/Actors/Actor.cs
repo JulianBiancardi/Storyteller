@@ -3,11 +3,14 @@ public class Actor
     private ActorId actorId;
     protected ActorId inLoveWith;
     private bool needsLove;
+    private bool isDead;
+    private HearthbreakCause hearthbreakCause;
 
     public Actor(ActorId actorId, bool needsLove){
         this.actorId = actorId;
         this.inLoveWith = ActorId.None;
         this.needsLove = needsLove;
+        this.isDead = false;
     }
 
     public ActorId GetActorId(){
@@ -46,6 +49,10 @@ public class Actor
         }
 
         return false;
+    }
+
+    public void BreakHearth(HearthbreakCause cause){
+        hearthbreakCause = cause;
     }
 
     public void Reset() {

@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -15,7 +13,8 @@ public class Level : MonoBehaviour
     public GameObject characterPrefab;
     public GameObject frameHolderPrefab;
     public float frameSpacing;
-    public Solution solution;
+    public LevelSolution solution;
+    private GoalsEvaluator goalsEvaluator = new();
     public TextMeshPro goalText;
     public GameObject goalCheckmark;
 
@@ -82,83 +81,14 @@ public class Level : MonoBehaviour
             actor.Reset();
         }
         foreach(FrameHolder frameHolder in frameHolders){
-            frameResults.Add(frameHolder.GetFrameResult());
+            frameResults.AddRange(frameHolder.GetFrameResults());
         }
 
-        solution.CheckSolution(frameResults);
-    }
-}
-
-[Serializable]
-public class Solution {
-    public List<FrameResult> goals = new();
-
-    public void CheckSolution(List<FrameResult> frameResults){
-
-        List<int> goalsIndexes = new();
-        for(int i = 0; i < goals.Count; i++){
-            int index = frameResults.FindIndex(0, (FrameResult result) => result.SameAs(goals[i]));
-            goalsIndexes.Add(index);
+        bool completed = goalsEvaluator.EvaluateGoals(frameResults, levelSpec.levelId);
+        if(completed){
+            goalCheckmark.SetActive(true);
+        }else{
+            goalCheckmark.SetActive(false);
         }
-
-        for(int i = 0; i < goalsIndexes.Count; i++){
-            int current = goalsIndexes[i];
-
-            if(current == -1){
-                Debug.Log("Missing goal");
-                Level.Instance.goalCheckmark.SetActive(false);
-                return;
-            }
-
-            if(i + 1 == goalsIndexes.Count){
-                continue;
-            }
-
-            if(current > goalsIndexes[i + 1]){
-                Debug.Log("Wrong order");
-                Level.Instance.goalCheckmark.SetActive(false);
-                return;
-            }
-        }
-
-        Debug.Log("Solution is correct");
-        Level.Instance.goalCheckmark.SetActive(true);
-    }
-}
-
-[Serializable]
-public struct FrameResult{
-    public ActorId actorId;
-    public Feeling feeling;
-    public bool isDead;
-    public RomanceResult romanceResult;
-
-    public FrameResult(ActorId actorId, Feeling feeling, bool isDead){
-        this.actorId = actorId;
-        this.feeling = feeling;
-        this.isDead = isDead;
-        this.romanceResult = new RomanceResult();
-    }
-
-    public bool SameAs(FrameResult other){
-        return actorId == other.actorId && feeling == other.feeling && isDead == other.isDead && romanceResult.SameAs(other.romanceResult);
-    }
-
-    public FrameResult WithRomance(ActorId firstActor, ActorId secondActor){
-        this.romanceResult = new RomanceResult{
-            firstActor = firstActor,
-            secondActor = secondActor
-        };
-        return this;
-    }
-}
-
-[Serializable]
-public struct RomanceResult{
-    public ActorId firstActor;
-    public ActorId secondActor;
-
-    public bool SameAs(RomanceResult other){
-        return (firstActor == other.firstActor && secondActor == other.secondActor) || (firstActor == other.secondActor && secondActor == other.firstActor);
     }
 }

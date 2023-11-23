@@ -1,14 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class God : Frame
 {
     public Container container;
 
-    public override FrameResult Compute()
+    public override List<FrameResult> Compute()
     {
+        List<FrameResult> results = new();
+
         Actor actor = container.GetActor();
         if(actor == null){
-            return new FrameResult();
+            return results;
         }
 
         Feeling newFeeling;
@@ -19,6 +22,8 @@ public class God : Frame
         }
         
         container.ChangeCharacterState(newFeeling);
-        return new FrameResult(container.GetActor().GetActorId(), newFeeling ,false);
+        FrameResult result = new FrameResult((newFeeling == Feeling.Lonely) ? EventType.Sad_At_Self : EventType.Idling).From(actor.GetActorId());
+        results.Add(result);
+        return results;
     }
 }
