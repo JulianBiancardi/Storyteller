@@ -48,6 +48,7 @@
      <Compile Include="Assets\Actors\CharacterFactory.cs" />
      <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\utils\CursorManager.cs" />
+     <Compile Include="Assets\Solution\ShockCause.cs" />
      <Compile Include="Assets\Solution\GoalsEvaluator.cs" />
      <Compile Include="Assets\Actors\Actor.cs" />
      <Compile Include="Assets\utils\BasicHolder.cs" />
@@ -56,8 +57,10 @@
      <Compile Include="Assets\Frames\Container.cs" />
      <Compile Include="Assets\Toolbox\ToolItem.cs" />
      <Compile Include="Assets\Frames\Garden.cs" />
+     <Compile Include="Assets\Solution\ExpressionType.cs" />
      <Compile Include="Assets\Frames\FrameFactory.cs" />
      <Compile Include="Assets\utils\BasicDraggeable.cs" />
+     <Compile Include="Assets\Solution\ExpressionInfo.cs" />
      <Compile Include="Assets\DragAndDrop.cs" />
      <Compile Include="Assets\Frames\CementeryContainer.cs" />
      <Compile Include="Assets\utils\Compability.cs" />

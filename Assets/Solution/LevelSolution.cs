@@ -5,13 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelSolution", menuName = "")]
 public class LevelSolution : ScriptableObject
 {
-    public List<FrameResult> goals = new List<FrameResult>();
+    public List<Event> goals = new List<Event>();
 
-    public void CheckSolution(List<FrameResult> frameResults){
+    public void CheckSolution(List<Event> frameResults){
 
         List<int> goalsIndexes = new();
         for(int i = 0; i < goals.Count; i++){
-            int index = frameResults.FindIndex(0, (FrameResult result) => result.SameAs(goals[i]));
+            int index = frameResults.FindIndex(0, (Event result) => result.SameAs(goals[i]));
             goalsIndexes.Add(index);
         }
 

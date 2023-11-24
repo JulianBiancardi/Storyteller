@@ -8,7 +8,7 @@ public abstract class Frame : MonoBehaviour, Removable
     {
     }
 
-    public abstract List<FrameResult> Compute();
+    public abstract List<Event> Compute();
 
     public void OnRemove()
     {

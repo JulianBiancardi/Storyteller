@@ -19,8 +19,8 @@ public class Garden : Frame
         gardenContainerRight.connectedContainers.Add(gardenContainerLeft);
     }
 
-    public override List<FrameResult> Compute(){
-        List<FrameResult> results = new();
+    public override List<Event> Compute(){
+        List<Event> results = new();
 
         if(gardenContainerLeft.IsEmpty() && gardenContainerRight.IsEmpty()){
             return results;
@@ -29,25 +29,18 @@ public class Garden : Frame
         Actor actorLeft = gardenContainerLeft.GetActor();
         Actor actorRight = gardenContainerRight.GetActor();
 
-        CompabilityResult result = Compability.Match(actorLeft, actorRight);
+        Event resultLeft = actorLeft?.Romance(actorRight);
+        Event resultRight = actorRight?.Romance(actorLeft);
 
-        expression.SetActive(result.isMatch);
-        if(!beforeMatch && result.isMatch){
-            audioSource.clip = Resources.Load<AudioClip>("Sound/Sfx/thumbs_up_in_love");
-            audioSource.Play();
+        gardenContainerLeft.UpdateCharacter(resultLeft);
+        gardenContainerRight.UpdateCharacter(resultRight);
+
+        if(resultLeft != null){
+            results.Add(resultLeft);
         }
 
-        if(actorLeft != null)
-            gardenContainerLeft.ChangeCharacterState(result.feelings[actorLeft.GetActorId()]);
-        
-        if(actorRight != null)
-            gardenContainerRight.ChangeCharacterState(result.feelings[actorRight.GetActorId()]);
-
-        beforeMatch = result.isMatch;
-
-        if(result.isMatch){
-            results.Add(new FrameResult(EventType.FallsOutOfLoveWith).From(actorLeft.GetActorId()).To(actorRight.GetActorId()));
-            results.Add(new FrameResult(EventType.FallsOutOfLoveWith).From(actorRight.GetActorId()).To(actorLeft.GetActorId()));
+        if(resultRight != null){
+            results.Add(resultRight);
         }
 
         return results;

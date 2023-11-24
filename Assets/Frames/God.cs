@@ -5,25 +5,37 @@ public class God : Frame
 {
     public Container container;
 
-    public override List<FrameResult> Compute()
+    public override List<Event> Compute()
     {
-        List<FrameResult> results = new();
+        List<Event> results = new();
 
         Actor actor = container.GetActor();
         if(actor == null){
             return results;
         }
 
-        Feeling newFeeling;
-        if(actor.IsLonely()){
-            newFeeling = actor.NeedsLove() ? Feeling.Lonely : Feeling.Neutral;
-        }else {
-            newFeeling = Feeling.Neutral;
+        ExpressionInfo expressionInfo = new ExpressionInfo();
+        Event result = new Event(EventType.None).From(actor.GetActorId());
+
+        if(actor.IsDead()){
+            expressionInfo.SetExpressionType(ExpressionType.Ghost_Idle);
+            result = result.SetEventType(EventType.Idling).WithExpressionInfo(expressionInfo);
         }
-        
-        container.ChangeCharacterState(newFeeling);
-        FrameResult result = new FrameResult((newFeeling == Feeling.Lonely) ? EventType.Sad_At_Self : EventType.Idling).From(actor.GetActorId());
+        else if(actor.IsLonely()){
+            if(actor.NeedsLove()){
+                expressionInfo.SetExpressionType(ExpressionType.Sad_At_Self);
+                result = result.SetEventType(EventType.Sad_At_Self).WithExpressionInfo(expressionInfo);
+            }else{
+                expressionInfo.SetExpressionType(ExpressionType.Idling);
+                result = result.SetEventType(EventType.Idling).WithExpressionInfo(expressionInfo);
+            }
+        }else {
+            expressionInfo.SetExpressionType(ExpressionType.Idling);
+            result = result.SetEventType(EventType.Idling).WithExpressionInfo(expressionInfo);
+        }
+
         results.Add(result);
+        container.UpdateCharacter(result);
         return results;
     }
 }

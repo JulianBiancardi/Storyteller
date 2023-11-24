@@ -34,15 +34,19 @@ public class FrameHolder : BasicHolder, Removable
         audioSource.Play();
     }
 
-    public List<FrameResult> GetFrameResults(){
+    public List<Event> GetFrameResults(){
         if(currentFrame == null){
-            return new List<FrameResult>();
+            return new List<Event>();
         }
         return currentFrame.GetComponent<Frame>().Compute();
     }
 
     public void OnRemove()
     {
+        if(currentFrame == null){
+            return;
+        }
+        
         Destroy(currentFrame);
         currentFrame = null;
         audioSource.clip = onRemoveFrame;

@@ -86,4 +86,11 @@ public class Container : MonoBehaviour
         }
         currentCharacter.GetComponent<Character>().ChangeFeeling(feeling);
     }
+
+    public void UpdateCharacter(Event e){
+        if(currentCharacter == null){
+            return;
+        }
+        currentCharacter.GetComponent<Character>().Update(e);
+    }
 }

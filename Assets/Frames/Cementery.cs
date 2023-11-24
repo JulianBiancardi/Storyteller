@@ -12,41 +12,39 @@ public class Cementery : Frame
         tombContainer.connectedContainers.Add(leftContainer);
     }
 
-    public override List<FrameResult> Compute()
+    public override List<Event> Compute()
     {
-        List<FrameResult> results = new();
+        List<Event> results = new();
         Actor witness = leftContainer.GetActor();
         Actor dead = tombContainer.GetActor();
 
-        DeathResult result = Death(dead, witness);
-        leftContainer.UpdateCharactersState(result);
-        tombContainer.DeathCharacter();
+        Event deadResult = dead?.Die();
+        tombContainer.UpdateCharacter(deadResult);
 
-        if(dead != null){
-            results.Add(new FrameResult(EventType.Died).From(dead.GetActorId()).WithDeathCause(DeathCause.Natural));
-
-            if(witness != null){
-                if(witness.IsInLoveWith(dead)){
-                    results.Add(new FrameResult(EventType.Idling).From(witness.GetActorId()).WithHearthbreakCause(HearthbreakCause.DeathOfLovedOne));
-                }
-            }
-        }
-
+        Event witnessResult = witness?.SeeDeath(dead);
+        leftContainer.UpdateCharacter(witnessResult);
+        
+        results.Add(deadResult);
+        results.Add(witnessResult);
         return results;
     }
 
 
-    private DeathResult Death(Actor actor, Actor witness){
+    private DeathResult Death(Actor dead, Actor witness){
         DeathResult result = new()
         {
             witnessFeeling = Feeling.Neutral
         };
 
-        if (witness == null || actor == null){
+        if(dead != null){
+            dead.Die();
+        }
+
+        if (witness == null || dead == null){
             return result;
         }
 
-        if(witness.IsInLoveWith(actor)){
+        if(witness.IsInLoveWith(dead)){
             result.witnessFeeling = Feeling.SadTomb;
         } else {
             result.witnessFeeling = Feeling.Neutral;

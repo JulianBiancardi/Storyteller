@@ -1359,6 +1359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSpec:
+    levelId: 3
     goal: Eve dies Hearthbroken
     frames: 3
     sets: 030000000200000001000000

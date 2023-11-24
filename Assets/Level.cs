@@ -75,7 +75,7 @@ public class Level : MonoBehaviour
     }
 
     public void ComputeAll(){
-        List<FrameResult> frameResults = new();
+        List<Event> frameResults = new();
 
         foreach(Actor actor in actors){
             actor.Reset();

@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 public class GoalsEvaluator
 {
-    private bool EvaluateOrdered(List<FrameResult> frameResults, List<FrameResult> expectedResults){
+    private bool EvaluateOrdered(List<Event> frameResults, List<Event> expectedResults){
         List<int> goalsIndexes = new();
         for(int i = 0; i < expectedResults.Count; i++){
-            int index = frameResults.FindIndex(0, (FrameResult result) => result.SameAs(expectedResults[i]));
+            int index = frameResults.FindIndex(0, (Event result) => result.SameAs(expectedResults[i]));
             goalsIndexes.Add(index);
         }
 
@@ -31,31 +31,37 @@ public class GoalsEvaluator
         return true;
     }
 
-    public bool EvaluateGoals(List<FrameResult> frameResults, LevelId levelId){
+    public bool EvaluateGoals(List<Event> frameResults, LevelId levelId){
         return levelId switch
         {
             LevelId.Love => EvaluateLevel1(frameResults),
             LevelId.Hearthbreak => EvaluateLevel2(frameResults),
+            LevelId.Afterlife => EvaluateLevel3(frameResults),
             _ => false,
         };
     }
     
-    public bool EvaluateLevel1(List<FrameResult> frameResults){
-        FrameResult first = new FrameResult(EventType.Sad_At_Self).From(ActorId.Adam);
-        FrameResult second = new FrameResult(EventType.FallsOutOfLoveWith).From(ActorId.Adam).To(ActorId.Eve);
-        FrameResult third = new FrameResult(EventType.Died).From(ActorId.Adam).WithDeathCause(DeathCause.Natural);
+    public bool EvaluateLevel1(List<Event> frameResults){
+        Event first = new Event(EventType.Sad_At_Self).From(ActorId.Adam);
+        Event second = new Event(EventType.FallsInLoveWith).From(ActorId.Adam).To(ActorId.Eve);
+        Event third = new Event(EventType.Died).From(ActorId.Adam).WithDeathCause(DeathCause.Natural);
 
-        List<FrameResult> expectedResults = new(){first, second, third};
+        List<Event> expectedResults = new(){first, second, third};
 
         return EvaluateOrdered(frameResults, expectedResults);
     } 
 
-    public bool EvaluateLevel2(List<FrameResult> frameResults){
-        FrameResult first = new FrameResult(EventType.Idling).From(ActorId.Eve).WithHearthbreakCause(HearthbreakCause.DeathOfLovedOne);
-        FrameResult second = new FrameResult(EventType.Died).From(ActorId.Eve).WithDeathCause(DeathCause.Natural);
+    public bool EvaluateLevel2(List<Event> frameResults){
+        Event first = new Event(EventType.Idling).From(ActorId.Eve).WithHearthbreakCause(HearthbreakCause.DeathOfLovedOne);
+        Event second = new Event(EventType.Died).From(ActorId.Eve).WithDeathCause(DeathCause.Natural);
 
-        List<FrameResult> expectedResults = new(){first, second};
+        List<Event> expectedResults = new(){first, second};
 
         return EvaluateOrdered(frameResults, expectedResults);
+    }
+
+    public bool EvaluateLevel3(List<Event> frameResults){
+        //int index = frameResults.FindIndex(0, (Event result) =>  result.hearthbreakCause == HearthbreakCause.DeathOfLovedOne && result.shockCause == ShockCause.SawDeadBody);
+        return false;
     }
 }
