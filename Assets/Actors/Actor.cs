@@ -4,7 +4,7 @@ public class Actor
     protected ActorId inLoveWith;
     private bool needsLove;
     private bool isDead;
-    private HearthbreakCause hearthbreakCause;
+    private HeartbreakCause heartbreakCause;
 
     public Actor(ActorId actorId, bool needsLove){
         this.actorId = actorId;
@@ -56,14 +56,14 @@ public class Actor
         return false;
     }
 
-    public void BreakHearth(HearthbreakCause cause){
-        hearthbreakCause = cause;
+    public void BreakHearth(HeartbreakCause cause){
+        heartbreakCause = cause;
     }
 
     public void Reset() {
         inLoveWith = ActorId.None;
         isDead = false;
-        hearthbreakCause = HearthbreakCause.None;
+        heartbreakCause = HeartbreakCause.None;
     }
 
     public Event Romance(Actor other){
@@ -77,7 +77,7 @@ public class Actor
         }
 
         if(other == null){
-            if(hearthbreakCause == HearthbreakCause.DeathOfLovedOne){
+            if(heartbreakCause == HeartbreakCause.DeathOfLovedOne){
                 expressionInfo.SetExpressionType(ExpressionType.Sad_At_Self);
             }
             return result;
@@ -134,9 +134,9 @@ public class Actor
         }
 
         if(IsInLoveWith(dead)){
-            result = result.WithHearthbreakCause(HearthbreakCause.DeathOfLovedOne);
+            result = result.WithHearthbreakCause(HeartbreakCause.DeathOfLovedOne);
             expressionInfo.SetExpressionType(ExpressionType.Mourning);
-            hearthbreakCause = HearthbreakCause.DeathOfLovedOne;
+            heartbreakCause = HeartbreakCause.DeathOfLovedOne;
             return result;
         }
 

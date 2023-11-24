@@ -91,6 +91,6 @@ public class Container : MonoBehaviour
         if(currentCharacter == null){
             return;
         }
-        currentCharacter.GetComponent<Character>().Update(e);
+        currentCharacter.GetComponent<Character>().UpdateState(e);
     }
 }

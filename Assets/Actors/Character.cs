@@ -78,7 +78,7 @@ public class Character : BasicDraggeable, Removable
         container.RemoveCharacter();
     }
 
-    public void Update(Event e){
+    public void UpdateState(Event e){
         if(e == null){
             return;
         }
@@ -109,6 +109,8 @@ public class Character : BasicDraggeable, Removable
                 break;
             case ExpressionType.Mourning:
                 animatorController.SetTrigger("isSadTomb");
+                audioSource.clip = Resources.Load<AudioClip>("Sound/Sfx/heartbroken");
+                audioSource.Play();
                 break;
             case ExpressionType.TombDeath:
                 Death();

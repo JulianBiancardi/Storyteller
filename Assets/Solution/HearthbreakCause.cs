@@ -1,5 +1,5 @@
 
-public enum HearthbreakCause
+public enum HeartbreakCause
 {
     None,
     DeathOfLovedOne

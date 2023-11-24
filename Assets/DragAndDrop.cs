@@ -71,11 +71,10 @@ public class DragAndDrop : MonoBehaviour
             Container container = hit.collider.gameObject.GetComponent<Container>();
             if(container != null){
                 container.ReceiveDragOperation(currentDragObject.GetComponent<Selection>());
-                Level.Instance.ComputeAll();
             }else {
-                Debug.Log("Not a container");
                 hit.collider.gameObject.GetComponent<BasicHolder>().Receive(currentDragObject.GetComponent<Selection>());
             }
+            Level.Instance.ComputeAll();
         }
 
         Destroy(currentDragObject);

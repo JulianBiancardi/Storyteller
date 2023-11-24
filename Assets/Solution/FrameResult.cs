@@ -6,7 +6,7 @@ public class Event{
     public ActorId source = ActorId.None;
     public ActorId target = ActorId.None;
     public DeathCause deathCause = DeathCause.None;
-    public HearthbreakCause hearthbreakCause = HearthbreakCause.None;
+    public HeartbreakCause heartbreakCause = HeartbreakCause.None;
     public ShockCause shockCause = ShockCause.None;
     public ExpressionInfo expressionInfo = new ExpressionInfo();
 
@@ -36,8 +36,8 @@ public class Event{
         return this;
     }
 
-    public Event WithHearthbreakCause(HearthbreakCause hearthbreakCause){
-        this.hearthbreakCause = hearthbreakCause;
+    public Event WithHearthbreakCause(HeartbreakCause heartbreakCause){
+        this.heartbreakCause = heartbreakCause;
         return this;
     }
 
@@ -51,7 +51,7 @@ public class Event{
         return this;
     }
     public bool SameAs(Event other){
-        return this.eventType == other.eventType && this.source == other.source && this.target == other.target && this.deathCause == other.deathCause && this.hearthbreakCause == other.hearthbreakCause && this.shockCause == other.shockCause;
+        return this.eventType == other.eventType && this.source == other.source && this.target == other.target && this.deathCause == other.deathCause && this.heartbreakCause == other.heartbreakCause && this.shockCause == other.shockCause;
     }
 
     public string ToText(){

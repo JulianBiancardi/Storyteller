@@ -52,7 +52,7 @@ public class GoalsEvaluator
     } 
 
     public bool EvaluateLevel2(List<Event> frameResults){
-        Event first = new Event(EventType.Idling).From(ActorId.Eve).WithHearthbreakCause(HearthbreakCause.DeathOfLovedOne);
+        Event first = new Event(EventType.Idling).From(ActorId.Eve).WithHearthbreakCause(HeartbreakCause.DeathOfLovedOne);
         Event second = new Event(EventType.Died).From(ActorId.Eve).WithDeathCause(DeathCause.Natural);
 
         List<Event> expectedResults = new(){first, second};
@@ -61,7 +61,7 @@ public class GoalsEvaluator
     }
 
     public bool EvaluateLevel3(List<Event> frameResults){
-        //int index = frameResults.FindIndex(0, (Event result) =>  result.hearthbreakCause == HearthbreakCause.DeathOfLovedOne && result.shockCause == ShockCause.SawDeadBody);
+        //int index = frameResults.FindIndex(0, (Event result) =>  result.heartbreakCause == HeartbreakCause.DeathOfLovedOne && result.shockCause == ShockCause.SawDeadBody);
         return false;
     }
 }

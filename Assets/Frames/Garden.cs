@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class Garden : Frame
@@ -9,12 +6,10 @@ public class Garden : Frame
     public Container gardenContainerLeft;
     public Container gardenContainerRight;
     public GameObject expression;
-    private AudioSource audioSource;
     private bool beforeMatch = false;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         gardenContainerLeft.connectedContainers.Add(gardenContainerRight);
         gardenContainerRight.connectedContainers.Add(gardenContainerLeft);
     }
@@ -37,12 +32,29 @@ public class Garden : Frame
 
         if(resultLeft != null){
             results.Add(resultLeft);
+            CheckMatch(resultLeft);
         }
 
         if(resultRight != null){
             results.Add(resultRight);
+            CheckMatch(resultRight);
         }
 
         return results;
+    }
+
+    private void CheckMatch(Event e){
+        if(e.eventType != EventType.FallsInLoveWith){
+            beforeMatch = false;
+            expression.SetActive(false);
+            return;
+        }
+
+        if(e.eventType == EventType.FallsInLoveWith && beforeMatch){
+            return;
+        }
+
+        beforeMatch = true;
+        expression.SetActive(true);
     }
 }
