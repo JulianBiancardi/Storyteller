@@ -5,5 +5,6 @@ public enum EventType
     Idling,
     Sad_At_Self,
     FallsInLoveWith,
-    Died
+    Died,
+    ShockedBy
 }

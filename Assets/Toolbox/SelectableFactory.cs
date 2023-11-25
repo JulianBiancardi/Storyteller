@@ -39,7 +39,7 @@ public class SelectableFactory{
     }
 
     static Dictionary<FrameSet, (string, string)> toolsInfo = new Dictionary<FrameSet, (string, string)>(){
-        {FrameSet.God, ("none","toolbox_setting_lovex2")},
+        {FrameSet.God, ("alone","toolbox_setting_lovex2")},
         {FrameSet.Cementery, ("death","toolbox_setting_graveyard")},
         {FrameSet.Garden, ("love","toolbox_setting_heart")},
     };

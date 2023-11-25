@@ -42,11 +42,11 @@
   <ItemGroup>
      <Compile Include="Assets\Toolbox\SelectableFactory.cs" />
      <Compile Include="Assets\Frames\FrameHolder.cs" />
+     <Compile Include="Assets\utils\Button.cs" />
      <Compile Include="Assets\Frames\FrameSet.cs" />
      <Compile Include="Assets\Frames\God.cs" />
      <Compile Include="Assets\utils\Removable.cs" />
      <Compile Include="Assets\Actors\CharacterFactory.cs" />
-     <Compile Include="Assets\PlayerController.cs" />
      <Compile Include="Assets\utils\CursorManager.cs" />
      <Compile Include="Assets\Solution\ShockCause.cs" />
      <Compile Include="Assets\Solution\GoalsEvaluator.cs" />
@@ -69,6 +69,7 @@
      <Compile Include="Assets\LevelSpec.cs" />
      <Compile Include="Assets\Solution\EventType.cs" />
      <Compile Include="Assets\Actors\ActorId.cs" />
+     <Compile Include="Assets\PageSelector.cs" />
      <Compile Include="Assets\Solution\DeathCause.cs" />
      <Compile Include="Assets\Toolbox\Selection.cs" />
      <Compile Include="Assets\Remove.cs" />

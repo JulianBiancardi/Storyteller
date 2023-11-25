@@ -3,6 +3,8 @@ using UnityEngine;
 public abstract class BasicDraggeable: MonoBehaviour
 {
     BoxCollider2D boxCollider2D;
+    public CursorState onHoverCursor = CursorState.Hover;  
+    public CursorState onDefaultCursor = CursorState.Default;
 
     void Start()
     {
@@ -12,14 +14,14 @@ public abstract class BasicDraggeable: MonoBehaviour
     void OnMouseEnter()
     {
         if(!DragAndDrop.instance.isDragging){
-            CursorManager.SetCursor(CursorManager.CursorState.Hover);
+            CursorManager.instance.SetCursor(onHoverCursor);
         }
     }
 
     void OnMouseExit()
     {
         if(!DragAndDrop.instance.isDragging){
-            CursorManager.SetCursor(CursorManager.CursorState.Default);
+            CursorManager.instance.SetCursor(onDefaultCursor);
         }
     }
 

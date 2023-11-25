@@ -5,7 +5,12 @@ public class GoalsEvaluator
     private bool EvaluateOrdered(List<Event> frameResults, List<Event> expectedResults){
         List<int> goalsIndexes = new();
         for(int i = 0; i < expectedResults.Count; i++){
-            int index = frameResults.FindIndex(0, (Event result) => result.SameAs(expectedResults[i]));
+            int index = frameResults.FindIndex(0, (Event result) => {
+                if(result == null){
+                    return false;
+                }
+                return result.SameAs(expectedResults[i]);
+            });
             goalsIndexes.Add(index);
         }
 
@@ -35,7 +40,7 @@ public class GoalsEvaluator
         return levelId switch
         {
             LevelId.Love => EvaluateLevel1(frameResults),
-            LevelId.Hearthbreak => EvaluateLevel2(frameResults),
+            LevelId.Heartbreak => EvaluateLevel2(frameResults),
             LevelId.Afterlife => EvaluateLevel3(frameResults),
             _ => false,
         };
@@ -61,7 +66,33 @@ public class GoalsEvaluator
     }
 
     public bool EvaluateLevel3(List<Event> frameResults){
-        //int index = frameResults.FindIndex(0, (Event result) =>  result.heartbreakCause == HeartbreakCause.DeathOfLovedOne && result.shockCause == ShockCause.SawDeadBody);
-        return false;
+        int fisrtGoal = frameResults.FindIndex(0, (Event result) =>  {
+            if(result == null){
+                return false;
+            }
+
+            return result.heartbreakCause == HeartbreakCause.DeathOfLovedOne;
+        });
+
+        if(fisrtGoal == -1){
+            Debug.Log("Missing goal");
+            return false;
+        }
+
+        ActorId actor = frameResults[fisrtGoal].source;
+        Debug.Log(actor);
+        int secondGoal = frameResults.FindIndex(0, (Event result) =>  {
+            if(result == null){
+                return false;
+            }
+
+            return result.source == actor && result.eventType == EventType.ShockedBy && result.shockCause == ShockCause.SawDeadBody;
+        });
+
+        if(secondGoal == -1){
+            Debug.Log("Missing second goal");
+            return false;
+        }
+        return true;
     }
 }

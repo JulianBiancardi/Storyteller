@@ -441,12 +441,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 265475709}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2.86, z: -1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1355071451}
+  m_Father: {fileID: 1137245830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &374797013
 GameObject:
@@ -1296,6 +1296,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1355071451}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1137245829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1137245830}
+  m_Layer: 0
+  m_Name: ToolBoxRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1137245830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137245829}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.86, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 265475710}
+  m_Father: {fileID: 1355071451}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1272120830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,14 +1390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5b41dff2d99b542b64150cc9260dda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSpec:
-    levelId: 3
-    goal: Eve dies Hearthbroken
-    frames: 3
-    sets: 030000000200000001000000
-    actors: 0100000002000000
-    initialFrames: 
-    toolSpacing: 2
+  levels: 030000000200000001000000
+  levelSpec: {fileID: 11400000, guid: 7cff0745006ae5747957ef9f96629288, type: 2}
   toolItemPrefab: {fileID: 407024023214072207, guid: 22af4755fc611754fa6fb413c687b771, type: 3}
   characterPrefab: {fileID: 1003213258521696579, guid: aa1a907a7da040d4bbcd09aa64c3d35a, type: 3}
   frameHolderPrefab: {fileID: 5724008357146688872, guid: d1bd26c505cfb284b990618d40ced393, type: 3}
@@ -1373,6 +1399,8 @@ MonoBehaviour:
   solution: {fileID: 11400000, guid: 926b6dc233237624b89bcc521d33bb32, type: 2}
   goalText: {fileID: 492979892}
   goalCheckmark: {fileID: 425407546}
+  toolBox: {fileID: 265475709}
+  frames: {fileID: 1024613696}
 --- !u!4 &1355071451
 Transform:
   m_ObjectHideFlags: 0
@@ -1389,8 +1417,8 @@ Transform:
   - {fileID: 211214412}
   - {fileID: 632872189}
   - {fileID: 1024613697}
-  - {fileID: 265475710}
   - {fileID: 1447999986}
+  - {fileID: 1137245830}
   m_Father: {fileID: 1586937478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1419121114

@@ -3,7 +3,7 @@ public enum LevelId
 {
     None,
     Love,
-    Hearthbreak,
+    Heartbreak,
     Afterlife,
     Miracle
 }

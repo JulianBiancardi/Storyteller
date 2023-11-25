@@ -31,10 +31,13 @@ public class DragAndDrop : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
         if(hit.collider != null){
             isDragging = true;
-            CursorManager.SetCursor(CursorManager.CursorState.Drag);
+            CursorManager.instance.SetCursor(CursorState.Drag);
             BasicDraggeable basicDraggeable = hit.collider.gameObject.GetComponent<BasicDraggeable>();
             if(basicDraggeable != null){
                 currentDragObject = basicDraggeable.OnDrag();
+                if(currentDragObject == null){
+                    return;
+                }
                 currentDragObject.layer = LayerMask.NameToLayer("CurrentDraggedObject");
                 StartCoroutine(DragObject(currentDragObject));
             }else {
@@ -53,7 +56,7 @@ public class DragAndDrop : MonoBehaviour
 
     void OnDeSelect(){
         isDragging = false;
-        CursorManager.SetCursor(CursorManager.CursorState.Default);
+        CursorManager.instance.SetCursor(CursorState.Default);
         Selection selection = currentDragObject.GetComponent<Selection>();
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -72,7 +75,8 @@ public class DragAndDrop : MonoBehaviour
             if(container != null){
                 container.ReceiveDragOperation(currentDragObject.GetComponent<Selection>());
             }else {
-                hit.collider.gameObject.GetComponent<BasicHolder>().Receive(currentDragObject.GetComponent<Selection>());
+                BasicHolder basicHolder = hit.collider.gameObject.GetComponent<BasicHolder>();
+                basicHolder?.Receive(currentDragObject.GetComponent<Selection>());
             }
             Level.Instance.ComputeAll();
         }

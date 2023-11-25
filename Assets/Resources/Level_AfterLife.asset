@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e207cb00a359d66439c3a10de7ad5444, type: 3}
+  m_Name: Level_AfterLife
+  m_EditorClassIdentifier: 
+  levelId: 3
+  levelMusic: {fileID: 8300000, guid: 1f43078b7fd2c7c4cb0d2ba2f3ae4608, type: 3}
+  goal: Seeing the Ghost of a Lover
+  frames: 3
+  sets: 0300000002000000
+  actors: 0100000002000000
+  initialFrames: 
+  toolSpacing: 2

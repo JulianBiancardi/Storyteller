@@ -1,3 +1,6 @@
+using System.Diagnostics;
+using UnityEngine;
+
 public class Actor
 {
     private ActorId actorId;
@@ -85,6 +88,7 @@ public class Actor
 
         if(other.IsDead()){
             expressionInfo.SetExpressionType(ExpressionType.Shocked_Horrified);
+            result.SetEventType(EventType.ShockedBy).To(other.actorId).WithShockCause(ShockCause.SawDeadBody);
             return result;
         }
 
