@@ -42,6 +42,7 @@
   <ItemGroup>
      <Compile Include="Assets\Toolbox\SelectableFactory.cs" />
      <Compile Include="Assets\Frames\FrameHolder.cs" />
+     <Compile Include="Assets\Level\Level.cs" />
      <Compile Include="Assets\utils\Button.cs" />
      <Compile Include="Assets\Frames\FrameSet.cs" />
      <Compile Include="Assets\Frames\God.cs" />
@@ -53,6 +54,7 @@
      <Compile Include="Assets\Actors\Actor.cs" />
      <Compile Include="Assets\utils\BasicHolder.cs" />
      <Compile Include="Assets\Solution\LevelSolution.cs" />
+     <Compile Include="Assets\Level\LevelSpec.cs" />
      <Compile Include="Assets\Solution\HearthbreakCause.cs" />
      <Compile Include="Assets\Frames\Container.cs" />
      <Compile Include="Assets\Toolbox\ToolItem.cs" />
@@ -66,7 +68,6 @@
      <Compile Include="Assets\utils\Compability.cs" />
      <Compile Include="Assets\Actors\Character.cs" />
      <Compile Include="Assets\Level\LevelId.cs" />
-     <Compile Include="Assets\LevelSpec.cs" />
      <Compile Include="Assets\Solution\EventType.cs" />
      <Compile Include="Assets\Actors\ActorId.cs" />
      <Compile Include="Assets\PageSelector.cs" />
@@ -76,7 +77,6 @@
      <Compile Include="Assets\Frames\Cementery.cs" />
      <Compile Include="Assets\utils\Expression.cs" />
      <Compile Include="Assets\Solution\FrameResult.cs" />
-     <Compile Include="Assets\Level.cs" />
      <Compile Include="Assets\Frames\Frame.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

@@ -16,7 +16,7 @@ MonoBehaviour:
   levelMusic: {fileID: 8300000, guid: 8a4ab2a24b852b448b316b08f187e275, type: 3}
   goal: Adam starts alone, Find love and dies Happy
   frames: 3
-  sets: 010000000200000003000000
+  sets: 010000000300000002000000
   actors: 0100000002000000
   initialFrames: 
   toolSpacing: 2
